@@ -28,6 +28,11 @@ public class Deck {
 		System.out.println("The cards have been shuffled...");
 	}
 
+	public Card dealCard(Hand hand) {
+		Card dealtCard = deck.remove(0);
+		return dealtCard;
+		
+	}
 	public Card dealCard() {
 		Card dealtCard = deck.remove(0);
 		return dealtCard;

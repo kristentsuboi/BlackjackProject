@@ -1,15 +1,9 @@
 package com.skilldistillery.blackjack.entities;
 
-import java.util.List;
-
 public class BlackjackHand extends Hand {
 
 	public BlackjackHand() {
 
-	}
-
-	public BlackjackHand(List<Card> hand) {
-		super(hand);
 	}
 
 	@Override
