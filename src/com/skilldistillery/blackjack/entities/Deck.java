@@ -23,10 +23,9 @@ public class Deck {
 		return deck;
 	}
 
-
-
 	public void shuffle() {
 		Collections.shuffle(deck);
+		System.out.println("The cards have been shuffled...");
 	}
 
 	public Card dealCard() {
@@ -37,4 +36,5 @@ public class Deck {
 	public int checkSize() {
 		return deck.size();
 	}
+	
 }
