@@ -12,7 +12,6 @@ public class BlackjackApp {
 	public static void main(String[] args) {
 		BlackjackApp bja = new BlackjackApp();
 		bja.launch();
-
 	}
 
 	public void launch() {
@@ -20,80 +19,50 @@ public class BlackjackApp {
 		System.out.println("The dealer will hit on anything below 17...");
 		System.out.println("");
 		dealer.shuffle();
-		boolean isRunning = true;
+		runGameLoop();
+	}
 
+	public void runGameLoop() {
+		boolean isRunning = true;
 		do {
 			dealingCards();
 			if (player.getHand().getHandValue() == 21) {
+				System.out.println("Congrats, you have  blackjack!");
+				determineWinner();
+			} else if (dealer.getHand().getHandValue() == 21) {
+				System.out.println("Dealer has blackjack!");
 				determineWinner();
 			} else {
-				System.out.println("Would you like to hit or stay? enter 'quit' to quit");
-				String input = sc.nextLine();
-				if (input.equals("quit")) {
-					System.out.println("You are exiting the program....");
-					isRunning = false;
-				} else if (input.equals("hit")) {
-					hit();
-					if (player.getHand().isBust() == true) {
-						System.out.println("You have busted....");
+				do {
+					System.out.println("Would you like to hit or stay? enter 'quit' to quit");
+					String input = sc.nextLine();
+					if (input.equals("quit")) {
+						System.out.println("You are exiting the program....");
+						isRunning = false;
+						break;
+					} else if (input.equals("stay")) {
+						dealer.dealerHandLogic();
 						determineWinner();
-					} else if (player.getHand().isBlackjack() == true) {
-						System.out.println("Blackjack!");
-						determineWinner();
-					} else {
-						System.out.println("Would you like to hit or stay? ");
-						input = sc.nextLine();
-						if (input.equals("stay")) {
-							dealer.dealerHandLogic();
+						break;
+					} else if (input.equals("hit")) {
+						hit();
+						if (player.getHand().isBust() == true) {
+							System.out.println("You have busted....");
 							determineWinner();
-
-						} else if (input.equals("hit")) {
-							hit();
-							if (player.getHand().isBust() == true) {
-								System.out.println("You have busted....");
-								determineWinner();
-							} else if (player.getHand().isBlackjack() == true) {
-								System.out.println("Blackjack!");
-								determineWinner();
-							} else {
-								System.out.println("Would you like to hit or stay? ");
-								input = sc.nextLine();
-								if (input.equals("stay")) {
-									dealer.dealerHandLogic();
-									determineWinner();
-								} else if (input.equals("hit")) {
-									hit();
-									if (player.getHand().isBust() == true) {
-										System.out.println("You have busted....");
-										determineWinner();
-									} else if (player.getHand().isBlackjack() == true) {
-										System.out.println("Blackjack!");
-										determineWinner();
-									} else {
-										System.out.println("Would you like to hit or stay? ");
-										input = sc.nextLine();
-										if (input.equals("stay")) {
-											dealer.dealerHandLogic();
-											determineWinner();
-										}
-									}
-								}
-
-							}
-						} else if (input.equals("stay")) {
-							dealer.dealerHandLogic();
+						} else if (player.getHand().isBlackjack() == true) {
+							System.out.println("Blackjack!");
 							determineWinner();
 						}
 					}
-				} else if (input.equals("stay")) {
-					dealer.dealerHandLogic();
-					determineWinner();
-				}
+				} while (player.getHand().getHandValue() < 21);
 			}
 			player.getHand().clearHand();
 			dealer.getHand().clearHand();
+			if (dealer.getDeck().checkSize() < 7) {
+				System.out.println("We have ran out of cards.... Thank you for playing...");
+				break;
+			}
 		} while (isRunning == true);
-
 	}
 
 	private void dealingCards() {
@@ -104,7 +73,6 @@ public class BlackjackApp {
 		System.out.println("Dealer top card: " + dealer.getHand().showOneCard());
 		System.out.println(player.getHand().toString());
 		System.out.println("The value of your hand is: " + player.getHand().getHandValue());
-
 	}
 
 	public void determineWinner() {

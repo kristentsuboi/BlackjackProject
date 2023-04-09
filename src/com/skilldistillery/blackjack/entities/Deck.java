@@ -17,7 +17,6 @@ public class Deck {
 				deck.add(card);
 			}
 		}
-
 	}
 	public List<Card> getDeck() {
 		return deck;
@@ -31,8 +30,8 @@ public class Deck {
 	public Card dealCard(Hand hand) {
 		Card dealtCard = deck.remove(0);
 		return dealtCard;
-		
 	}
+	
 	public Card dealCard() {
 		Card dealtCard = deck.remove(0);
 		return dealtCard;
@@ -41,5 +40,4 @@ public class Deck {
 	public int checkSize() {
 		return deck.size();
 	}
-	
 }

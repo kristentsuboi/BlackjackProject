@@ -5,10 +5,11 @@ import java.util.Objects;
 public class Card {
 	private Suit suit;
 	private Rank rank;
-	
-	public Card() {}
 
-	public Card (Suit suit, Rank rank) {
+	public Card() {
+	}
+
+	public Card(Suit suit, Rank rank) {
 		this.rank = rank;
 		this.suit = suit;
 	}
@@ -36,7 +37,7 @@ public class Card {
 		builder.append(rank + " of " + suit);
 		return builder.toString();
 	}
-	
+
 	public Rank getValue(Card card) {
 		return rank;
 	}
